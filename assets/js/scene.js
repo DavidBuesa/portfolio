@@ -325,27 +325,62 @@ function shadow(obj) {
 }
 
 const interactables = [];
-const halos = [];
+const interactionIndicators = [];
 
-/* ── Helper para crear halos interactivos ── */
-function createHalo(position, scale = 1) {
+/* ── Helper para crear indicadores de interacción ── */
+function createInteractionIndicator(position, offsetY = 0.5) {
   const canvas = document.createElement('canvas');
-  canvas.width = canvas.height = 64;
+  canvas.width = 128;
+  canvas.height = 96;
   const ctx = canvas.getContext('2d');
-  const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-  gradient.addColorStop(0, 'rgba(116,192,252,0.6)');
-  gradient.addColorStop(0.5, 'rgba(116,192,252,0.3)');
-  gradient.addColorStop(1, 'rgba(116,192,252,0)');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, 64, 64);
+  
+  // Bocadillo de diálogo
+  ctx.fillStyle = 'rgba(116, 192, 252, 0.95)';
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+  ctx.lineWidth = 2;
+  
+  // Rectángulo redondeado del bocadillo
+  const x = 20, y = 10, w = 88, h = 60, r = 12;
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y, x + w, y + r, r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + 50, y + h);
+  ctx.lineTo(x + 40, y + h + 15); // Punta del bocadillo
+  ctx.lineTo(x + 35, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x, y + h, x, y + h - r, r);
+  ctx.lineTo(x, y + r);
+  ctx.arcTo(x, y, x + r, y, r);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  
+  // Icono de cursor/clic
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+  ctx.font = 'bold 28px Arial';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('👆', 64, 38);
   
   const texture = new THREE.CanvasTexture(canvas);
-  const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.8, depthWrite: false });
+  texture.needsUpdate = true;
+  
+  const spriteMat = new THREE.SpriteMaterial({ 
+    map: texture, 
+    transparent: true,
+    depthTest: false,
+    depthWrite: false
+  });
   const sprite = new THREE.Sprite(spriteMat);
-  sprite.scale.set(scale, scale, 1);
+  sprite.scale.set(0.8, 0.6, 1);
   sprite.position.copy(position);
+  sprite.position.y += offsetY;
+  sprite.userData.baseY = sprite.position.y;
   scene.add(sprite);
-  halos.push(sprite);
+  interactionIndicators.push(sprite);
   return sprite;
 }
 
@@ -428,7 +463,7 @@ monHit.userData = {
   }
 };
 scene.add(monHit); interactables.push(monHit);
-createHalo(monHit.position, 0.8);
+const monIndicator = createInteractionIndicator(monHit.position, 0.8);
 
 /* ── Teclado ── */
 const kb = mkBox(0.9, 0.04, 0.3, C.keyboard); kb.position.set(-1.1, 1.15, -2.4); kb.castShadow = true; scene.add(kb);
@@ -461,7 +496,7 @@ mugHit.userData = {
   }
 };
 scene.add(mugHit); interactables.push(mugHit);
-createHalo(mugHit.position, 0.5);
+createInteractionIndicator(mugHit.position, 0.4);
 
 /* ── Tarjeta GitHub (interactuable: GitHub) ── */
 const ghCard = mkBox(0.22, 0.28, 0.02, 0x1a1a2e); ghCard.position.set(-1.7, 1.14, -2.55); scene.add(ghCard);
@@ -478,7 +513,7 @@ ghCardHit.userData = {
   }
 };
 scene.add(ghCardHit); interactables.push(ghCardHit);
-createHalo(ghCardHit.position, 0.5);
+createInteractionIndicator(ghCardHit.position, 0.4);
 
 /* ── Estantería con libros (interactuable: Skills) ── */
 const shelfGroup = new THREE.Group();
@@ -507,7 +542,7 @@ shelfHit.userData = {
   }
 };
 scene.add(shelfHit); interactables.push(shelfHit);
-createHalo(shelfHit.position, 1.2);
+createInteractionIndicator(shelfHit.position, 0.8);
 
 /* ── Silla ── */
 const chairGroup = new THREE.Group();
@@ -578,8 +613,8 @@ ballHit.userData = {
   }
 };
 scene.add(ballHit); interactables.push(ballHit);
-const ballHalo = createHalo(ballHit.position, 0.6);
-ballHalo.userData.followsBall = true;
+const ballIndicator = createInteractionIndicator(ballHit.position, 0.6);
+ballIndicator.userData.followsBall = true;
 
 /* ── Trofeo (interactuable: Proyectos) ── */
 const trophyGroup = new THREE.Group();
@@ -605,9 +640,9 @@ trophyHit.userData = {
   }
 };
 scene.add(trophyHit); interactables.push(trophyHit);
-createHalo(trophyHit.position, 0.6);
+createInteractionIndicator(trophyHit.position, 0.6);
 
-/* ── Póster soft skills (interactuable) ── */
+/* ── Póster decorativo ── */
 const posterGroup = new THREE.Group();
 posterGroup.add(mkBox(1.5, 2.0, 0.04, 0x1a1a2e));
 const pBorder = mkBox(1.6, 2.1, 0.02, 0x364fc7); pBorder.position.set(0, 0, -0.03); posterGroup.add(pBorder);
@@ -617,9 +652,25 @@ const pBorder = mkBox(1.6, 2.1, 0.02, 0x364fc7); pBorder.position.set(0, 0, -0.0
 });
 posterGroup.position.set(3, 2.8, -3.88); scene.add(posterGroup);
 
-const posterHit = new THREE.Mesh(new THREE.BoxGeometry(1.8, 2.2, 0.3), new THREE.MeshBasicMaterial({ visible: false }));
-posterHit.position.copy(posterGroup.position);
-posterHit.userData = {
+/* ── Libros en el suelo (interactuable: Soft Skills) ── */
+const floorBooksGroup = new THREE.Group();
+const fbColors = [0x364fc7, 0x1864ab, 0x1971c2, 0x228be6];
+fbColors.forEach((color, i) => {
+  const book = mkBox(0.35, 0.08, 0.5, color);
+  book.rotation.y = Math.random() * 0.3 - 0.15;
+  book.position.set(
+    (Math.random() - 0.5) * 0.2,
+    0.04 + i * 0.085,
+    (Math.random() - 0.5) * 0.15
+  );
+  floorBooksGroup.add(book);
+});
+floorBooksGroup.position.set(-4.5, 0, -1);
+scene.add(shadow(floorBooksGroup));
+
+const floorBooksHit = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.1, 0.7), new THREE.MeshBasicMaterial({ visible: false }));
+floorBooksHit.position.set(-4.5, 0.2, -1);
+floorBooksHit.userData = {
   id: 'poster',
   label: t('poster.label'),
   content: {
@@ -629,8 +680,8 @@ posterHit.userData = {
     html: t('poster.html')
   }
 };
-scene.add(posterHit); interactables.push(posterHit);
-createHalo(posterHit.position, 1.2);
+scene.add(floorBooksHit); interactables.push(floorBooksHit);
+createInteractionIndicator(floorBooksHit.position, 0.5);
 
 /* ── Alfombra ── */
 const rug = new THREE.Mesh(new THREE.PlaneGeometry(3, 2.5), flatMat(C.rug, { transparent: true, opacity: 0.35 }));
@@ -810,19 +861,19 @@ function animate() {
   ballGroup.position.y = 0.28 + Math.sin(t * 1.2) * 0.04;
   ballHit.position.copy(ballGroup.position);
 
-  /* Animación de halos */
-  halos.forEach((halo, i) => {
-    if (halo.userData.followsBall) {
-      halo.position.copy(ballHit.position);
+  /* Actualizar indicadores de interacción */
+  interactionIndicators.forEach((indicator, i) => {
+    // Seguir al balón si es necesario
+    if (indicator.userData.followsBall) {
+      indicator.position.copy(ballHit.position);
+      indicator.userData.baseY = ballHit.position.y + 0.6;
     }
-    const phase = i * 0.5;
-    halo.material.opacity = 0.5 + Math.sin(t * 1.5 + phase) * 0.3;
-    const scaleBase = halo.scale.x;
-    halo.scale.set(
-      scaleBase + Math.sin(t * 1.5 + phase) * 0.1,
-      scaleBase + Math.sin(t * 1.5 + phase) * 0.1,
-      1
-    );
+    
+    // Animación de flotación y pulsación
+    const phase = i * 0.8;
+    const baseY = indicator.userData.baseY;
+    indicator.position.y = baseY + Math.sin(t * 2 + phase) * 0.04;
+    indicator.material.opacity = 0.85 + Math.sin(t * 3 + phase) * 0.15;
   });
 
   /* Pulso del monitor */
