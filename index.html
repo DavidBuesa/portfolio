@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>David Buesa — Portfolio</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <!-- Ambient glows -->
+  <div class="glow" id="glow1"></div>
+  <div class="glow" id="glow2"></div>
+
+  <!-- Canvas Three.js -->
+  <canvas id="canvas"></canvas>
+
+  <!-- Header -->
+  <div id="header">
+    <div id="name-title">
+      <h1>David Buesa Lorente</h1>
+      <p id="subtitle-text">Full Stack Developer · Tordera, Barcelona</p>
+    </div>
+    <div id="lang-selector">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="es">ES</button>
+    </div>
+    <div id="hint">Click on objects to explore ↗</div>
+  </div>
+
+  <!-- Crosshair personalizado -->
+  <div id="crosshair">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="4" stroke="rgba(255,255,255,0.9)" stroke-width="1"/>
+      <line x1="12" y1="2"  x2="12" y2="8"  stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+      <line x1="12" y1="16" x2="12" y2="22" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+      <line x1="2"  y1="12" x2="8"  y2="12" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+      <line x1="16" y1="12" x2="22" y2="12" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <!-- Tooltip de hover -->
+  <div id="tooltip"></div>
+
+  <!-- Backdrop de modal -->
+  <div id="modal-backdrop"></div>
+
+  <!-- Panel modal de información -->
+  <div id="modal">
+    <button id="modal-close">✕</button>
+    <div id="modal-icon"></div>
+    <div id="modal-title"></div>
+    <div id="modal-subtitle"></div>
+    <div id="modal-divider"></div>
+    <div id="modal-content"></div>
+  </div>
+
+  <!-- Puntos de navegación de cámara -->
+  <div id="nav-dots">
+    <div class="dot active" title="Vista principal"></div>
+    <div class="dot"        title="Vista lateral"></div>
+  </div>
+
+  <!-- Three.js desde CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Lógica de la escena 3D -->
+  <script src="assets/js/scene.js"></script>
+
+</body>
+</html>
