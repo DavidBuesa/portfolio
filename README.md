@@ -33,7 +33,6 @@ portfolio_david_buesa/
 Usa los tres puntos en la parte inferior para cambiar entre:
 - **Vista principal** — perspectiva frontal con balanceo suave
 - **Vista lateral** — ángulo desde la derecha
-- **Vista aérea** — cenital
 
 ## 🚀 Cómo abrirlo
 
