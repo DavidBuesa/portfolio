@@ -92,7 +92,7 @@ const translations = {
       <div class="item"><div class="item-dot" style="background:#f59f00"></div><div>
         <strong>Cinematch</strong><span class="period">Web & Android App</span>
         Personal movie library with favorites, ratings and personalized recommendations.<br>
-        <span class="tag">Android</span><span class="tag">Capacitor</span><span class="tag">REST API</span><br>
+        <span class="tag">Android</span><span class="tag">Capacitor</span><span class="tag">REST API</span><span class="tag">Web</span><br>
         <a href="https://cinematchdb.vercel.app/" target="_blank">↗ View project</a>
       </div></div>
       <div class="item"><div class="item-dot" style="background:#40c057"></div><div>
