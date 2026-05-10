@@ -98,7 +98,8 @@ const translations = {
       <div class="item"><div class="item-dot" style="background:#40c057"></div><div>
         <strong>Tactix</strong><span class="period">Android App · Sports Management</span>
         Platform for football teams: squad, training sessions, matches, statistics.<br>
-        <span class="tag">Android</span><span class="tag">Capacitor</span><span class="tag">Firebase</span><span class="tag">Multi-role</span>
+        <span class="tag">Android</span><span class="tag">Capacitor</span><span class="tag">Firebase</span><span class="tag">Multi-role</span><br>
+        <a href="https://tactixdb.vercel.app/" target="_blank">↗ View project</a>
       </div></div>`
     },
     poster: {
@@ -202,7 +203,8 @@ const translations = {
       <div class="item"><div class="item-dot" style="background:#40c057"></div><div>
         <strong>Tactix</strong><span class="period">App Android · Gestión Deportiva</span>
         Plataforma para equipos de fútbol: plantilla, entrenamientos, partidos, estadísticas.<br>
-        <span class="tag">Android</span><span class="tag">Capacitor</span><span class="tag">Firebase</span><span class="tag">Multi-rol</span>
+        <span class="tag">Android</span><span class="tag">Capacitor</span><span class="tag">Firebase</span><span class="tag">Multi-rol</span><br>
+        <a href="https://tactixdb.vercel.app/" target="_blank">↗ Ver proyecto</a>
       </div></div>`
     },
     poster: {
