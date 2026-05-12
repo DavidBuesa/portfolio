@@ -100,6 +100,12 @@ const translations = {
         Platform for football teams: squad, training sessions, matches, statistics.<br>
         <span class="tag">Android</span><span class="tag">Capacitor</span><span class="tag">Firebase</span><span class="tag">Multi-role</span><br>
         <a href="https://tactixdb.vercel.app/" target="_blank">↗ View project</a>
+      </div></div>
+      <div class="item"><div class="item-dot" style="background:#e03131"></div><div>
+        <strong>Poker IQ</strong><span class="period">Web App · Game Training</span>
+        Interactive poker puzzle platform to master game strategy and decision-making.<br>
+        <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Vite</span><span class="tag">Web</span><br>
+        <a href="https://poker-iq.vercel.app/" target="_blank">↗ View project</a>
       </div></div>`
     },
     poster: {
@@ -205,6 +211,12 @@ const translations = {
         Plataforma para equipos de fútbol: plantilla, entrenamientos, partidos, estadísticas.<br>
         <span class="tag">Android</span><span class="tag">Capacitor</span><span class="tag">Firebase</span><span class="tag">Multi-rol</span><br>
         <a href="https://tactixdb.vercel.app/" target="_blank">↗ Ver proyecto</a>
+      </div></div>
+      <div class="item"><div class="item-dot" style="background:#e03131"></div><div>
+        <strong>Poker IQ</strong><span class="period">Aplicación Web · Entrenamiento de Juego</span>
+        Plataforma interactiva de puzzles de poker para dominar la estrategia y toma de decisiones.<br>
+        <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Vite</span><span class="tag">Web</span><br>
+        <a href="https://poker-iq.vercel.app/" target="_blank">↗ Ver proyecto</a>
       </div></div>`
     },
     poster: {
